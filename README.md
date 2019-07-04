@@ -1,9 +1,18 @@
+#https://github.com/vuejs/vue-cli/issues/4231 - eslint loader issue resolution
+
+For Deleting all files recursively
+---------------------------------
+DEL /F/Q/S *.*
+
+
 # vuetodo
 
 ## Project setup
 ```
 npm install
 ```
+
+
 
 ### Compiles and hot-reloads for development
 ```
