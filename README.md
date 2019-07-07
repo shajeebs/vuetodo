@@ -4,6 +4,9 @@ For Deleting all files recursively
 ---------------------------------
 DEL /F/Q/S *.*
 
+Deleting Folders
+----------------
+rmdir /S /Q %DIRNAME%
 
 # vuetodo
 
