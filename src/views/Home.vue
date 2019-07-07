@@ -9,6 +9,7 @@
 // @ is an alias to /src
 import Todos from '@/components/Todos.vue'
 import AddTodo from '@/components/AddTodo.vue'
+import axios from 'axios';
 
 export default {
   name: 'home',
@@ -18,22 +19,32 @@ export default {
   },
   data() {
     return {
-      todoData: [
-        { id: 1, title: "Todo One", completed:false },
-        { id: 2, title: "Todo Two", completed:false },
-        { id: 3, title: "Todo Three", completed:true },
-        { id: 4, title: "Todo Four", completed:false },
-        { id: 5, title: "Todo Five", completed:true },
-      ]
+      todoData: []
     }
   },
   methods: {
     deleteTodo(id) {
-      this.todoData = this.todoData.filter(td => td.id != id);
-    },
+      //console.log('Hello' + id);
+      axios.delete(`https://jsonplaceholder.typicode.com/todos/${id}`)
+        .then(res => this.todoData = this.todoData.filter(td => td.id != res.data.id));
+        //.catch(err);
+    }, 
     addTodo(newTodo){
+     // console.log('Hello');
+      //console.log(newTodo);
+      const { title, completed } = newTodo;
+     
+      axios.post('https://jsonplaceholder.typicode.com/todos', { title, completed})
+        .then(res => this.todoData = [...this.todoData, res.data]);
+        //.catch(err);
+
       this.todoData = [...this.todoData, newTodo];
     }
+  },
+  created() {
+    axios.get('https://jsonplaceholder.typicode.com/todos?_limit=5')
+      .then(res => this.todoData = res.data);
+      //.catch(err);
   }
 }
 </script>
